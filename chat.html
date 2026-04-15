@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | Chat — AI Engine</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Material Symbols -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./styles/chat.css" />
+</head>
+
+<body>
+  <!-- ====== Top Navigation ====== -->
+  <header class="topnav">
+    <div style="display:flex;align-items:center;gap:2rem">
+      <span class="topnav__brand headline-font">RapidForce</span>
+      <nav class="topnav__links">
+      </nav>
+    </div>
+    <div class="topnav__actions">
+      <button class="topnav__btn-create">Create New</button>
+      <div class="topnav__avatar">
+        <img
+          alt="User profile"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSPXrPijmfx-WxndYbMDUfJggNjLfMq7xgdHu-D6jNIaSE-RpvXiSHV2pPUEJH5MTo-5XBRCWMLfRhog1f9Rft8fHekOxixyTxV5Bpo9DG3PXWpY4y8mV4vUm9TMMxXb0uywXvbB5bmPWyrB3SJOD33JtOpXeHPiDB_OjARYlp8sv45YjICY-MDaYLb0uj9e7IarZ7iWNwzG9AGZPlmvSL7mtF5Ztald24mDTTtrKdSiyeaF3ylpKV7k0rEeUcgoGXI9PvBAgpqDBx"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== App Shell ====== -->
+  <div class="app-shell">
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__brand">
+          <div class="sidebar__brand-icon">
+            <span class="material-symbols-outlined">auto_awesome</span>
+          </div>
+          <div>
+            <h1 class="sidebar__brand-title headline-font">The Workshop</h1>
+            <p class="sidebar__brand-subtitle">AI Engine Active</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a class="sidebar__link sidebar__link--active" href="./chat.html">
+          <span class="material-symbols-outlined">forum</span>
+          <span>Chat</span>
+        </a>
+        <a class="sidebar__link" href="./my-models.html">
+          <span class="material-symbols-outlined">view_in_ar</span>
+          <span>My Models</span>
+        </a>
+
+        <span class="sidebar__section-label">Discovery</span>
+
+        <a class="sidebar__link" href="#">
+          <span class="material-symbols-outlined">gallery_thumbnail</span>
+          <span>Gallery</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-links">
+          <a class="sidebar__footer-link" href="#">
+            <span class="material-symbols-outlined" style="font-size:1.125rem">help</span>
+            <span>Help</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== Main Content ====== -->
+    <main class="main-content">
+      <div class="chat-area">
+        <!-- Chat Messages -->
+        <section class="chat-messages" id="chatMessages">
+
+          <!-- User Message -->
+          <div class="msg msg--user">
+            <div class="msg__wrapper">
+              <div class="msg__bubble msg__bubble--user" style="display:flex;flex-direction:column;gap:0.75rem">
+                <p class="msg__text">
+                  Generating a 3D model based on this character design. Please keep the neon accents and the robotic joints visible.
+                </p>
+                <div class="msg__image">
+                  <img
+                    alt="2D Character Design"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4J6sdPMHeP-zKhfqhDeVbwOXNc4lJksHIHOS_5CnSx-qTMCsmsAFxWzKD7CBhwM4XXjuEjv64GeN4Y4nQb4mnz2YX1mA3S-eKVyilIMJX7U4Mdb_WqMb46eha14bI10s2rO4ac51parnSY4IOAOsHBdrfR7XGxfIcY1tSM4pWYK8GxhFA-mK2HY01u59tOMluY_dh3MTwPjwtWvD5B_hoDJeTUqC8aULcJ0hFfw6JTry2tB9XpkGZjb2wn9AyXtv2FNkh_n8tjfZ8"
+                  />
+                  <div class="msg__image-overlay"></div>
+                </div>
+              </div>
+              <div class="msg__timestamp">14:22 PM &bull; User</div>
+            </div>
+          </div>
+
+          <!-- AI Response Message -->
+          <div class="msg msg--ai">
+            <div class="msg__wrapper msg__wrapper--ai">
+              <div class="msg__row">
+                <div class="msg__avatar">RF</div>
+                <div style="flex:1">
+                  <div class="msg__bubble msg__bubble--ai">
+                    <p class="msg__text" style="margin-bottom:1.5rem">
+                      Conversion complete. I've successfully extruded the 2D character into a high-fidelity 3D mesh while preserving the material properties and emission maps. You can preview the model below.
+                    </p>
+
+                    <!-- 3D Preview Card -->
+                    <div class="preview-grid">
+                      <div class="preview-viewer">
+                        <img
+                          alt="3D Model Preview"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSHM3PdnVDDKqUnmSlcHOQiz26F5OxFfu001o6fJdUTf0me5o5kduCON3ZyPaULxCulE0_UyhJ-Q7aqOyfdnymgxJq6QzRaGaBaXxS62PX2J6ft8TtctRXuVdrNKjpQJ4nuIVFFzkZxmlbWVf83s-ypbwM7r6RraD_h87Mc3G0rY6oJbyFyWGiKMrrGM7To_fBDTw-iglwIpFsKxXtUFwkoLs8mv1Gyfwpztowf7pNnsK721fh2_A_jJZtxP8wyuu8gg_r1-IPottd"
+                        />
+                        <div class="preview-viewer__gradient"></div>
+                        <button class="preview-viewer__expand-btn">
+                          <span class="material-symbols-outlined">open_in_full</span>
+                        </button>
+                        <div class="preview-viewer__badge">Ready to Export</div>
+                      </div>
+
+                      <div class="preview-sidebar">
+                        <div class="preview-info">
+                          <div>
+                            <span class="preview-info__label">Asset ID</span>
+                            <code class="preview-info__value">#RF-992-KRONOS</code>
+                          </div>
+                          <div class="preview-info__stat">
+                            <span class="preview-info__label">Polygons</span>
+                            <p class="preview-info__stat-value headline-font">142.5k</p>
+                          </div>
+                        </div>
+                        <button class="preview-download-btn">
+                          <span class="material-symbols-outlined">download</span>
+                          Download .GLB
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="msg__timestamp" style="margin-top:0.5rem">14:24 PM &bull; RapidForce AI</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Chat Input Footer -->
+        <footer class="chat-footer">
+          <div class="chat-input-wrap">
+            <div class="chat-input">
+              <button class="chat-input__btn" id="attachBtn" title="Choose image">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+              <input id="imageInput" type="file" accept="image/*" class="sr-only" />
+              <input
+                id="chatInput"
+                class="chat-input__field"
+                type="text"
+                placeholder="Describe your 3D vision..."
+              />
+              <span id="selectedFileChip" class="chat-input__file-chip">
+                <span class="chat-input__file-chip-name" id="fileChipName"></span>
+                <button type="button" class="chat-input__file-chip-remove" id="removeFileBtn" aria-label="Remove file">&times;</button>
+              </span>
+              <div class="chat-input__actions">
+                <label class="toggle-rm-bg" for="removeBgToggle" aria-label="Toggle remove background">
+                  <input type="checkbox" id="removeBgToggle" />
+                  <span class="toggle-rm-bg__track">
+                    <span class="toggle-rm-bg__thumb"></span>
+                  </span>
+                  <span class="toggle-rm-bg__tooltip">Remove Background</span>
+                </label>
+                <button class="chat-input__send" id="sendBtn">
+                  <span class="material-symbols-outlined">send</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="bg-decoration">
+    <div class="bg-decoration__blob--blue"></div>
+    <div class="bg-decoration__blob--purple"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./scripts/shared.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="./scripts/chat.js"></script>
+</body>
+</html>

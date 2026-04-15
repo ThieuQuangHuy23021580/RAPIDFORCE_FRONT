@@ -1,0 +1,265 @@
+/* ===========================
+   RapidForce — My Models Page
+   =========================== */
+
+/* --- Page Header --- */
+.models-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  padding: 3rem 2.5rem 0;
+}
+
+.models-header__title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: #2d3337;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.models-header__desc {
+  color: #596063;
+  font-size: 0.875rem;
+  max-width: 28rem;
+  line-height: 1.6;
+}
+
+/* --- Storage Indicator --- */
+.storage-card {
+  min-width: 15rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.storage-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.storage-card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #596063;
+}
+
+.storage-card__count {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #5948d3;
+}
+
+.storage-card__bar {
+  width: 100%;
+  height: 0.5rem;
+  background: #dde3e7;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.storage-card__bar-fill {
+  height: 100%;
+  background: #5948d3;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.storage-card__tier {
+  margin-top: 0.75rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  color: #596063;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+/* --- Model Cards Grid --- */
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 0 2.5rem 3rem;
+}
+
+/* --- Model Card --- */
+.model-card {
+  border-radius: 2rem;
+  padding: 1rem;
+  transition: all 0.5s;
+}
+
+.model-card:hover {
+  box-shadow: 0 25px 50px rgba(89, 72, 211, 0.05);
+  transform: translateY(-4px);
+}
+
+.model-card__image {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #f7f9fb;
+  margin-bottom: 1rem;
+}
+
+.model-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s;
+}
+
+.model-card:hover .model-card__image img {
+  transform: scale(1.1);
+}
+
+.model-card__badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(214, 247, 210, 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: 9999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #4a664a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.model-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.model-card__name {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #2d3337;
+  line-height: 1;
+}
+
+.model-card__id {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #596063;
+  opacity: 0.6;
+}
+
+.model-card__download {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #dde3e7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.model-card__download:hover {
+  background: #5948d3;
+  color: #fcf7ff;
+}
+
+.model-card__download:active {
+  transform: scale(0.9);
+}
+
+/* --- Empty / Placeholder Slot --- */
+.model-card--empty {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 2rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 21.25rem;
+  transition: border-color 0.3s, background 0.3s;
+  cursor: pointer;
+}
+
+.model-card--empty:hover {
+  border-color: rgba(89, 72, 211, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.model-card--empty__icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.2s;
+}
+
+.model-card--empty:hover .model-card--empty__icon {
+  transform: scale(1.1);
+}
+
+.model-card--empty__icon .material-symbols-outlined {
+  font-size: 1.875rem;
+  color: #596063;
+}
+
+.model-card--empty:hover .model-card--empty__icon .material-symbols-outlined {
+  color: #5948d3;
+}
+
+.model-card--empty__title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #596063;
+}
+
+.model-card--empty__subtitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #596063;
+  opacity: 0.4;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.25rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1280px) {
+  .models-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .models-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem 0;
+  }
+
+  .models-header__title {
+    font-size: 2rem;
+  }
+
+  .models-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem 2rem;
+  }
+}

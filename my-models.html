@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | My Models</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Material Symbols -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./styles/my-models.css" />
+</head>
+
+<body>
+  <!-- ====== Top Navigation ====== -->
+  <header class="topnav">
+    <div style="display:flex;align-items:center;gap:2rem">
+      <span class="topnav__brand headline-font">RapidForce</span>
+      <nav class="topnav__links">
+      </nav>
+    </div>
+    <div class="topnav__actions">
+      <button class="topnav__btn-create">Create New</button>
+      <div class="topnav__avatar">
+        <img
+          alt="User profile"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmJH10ahChCm1bgT3CWIm5m-4Bqybjip1JpOgXo4w-Y_JuLS564kypFA6GYautfpKvmpgLKAzZYrRWZDDaaMwSNqo0MY3lfXkBtwjcmYL2vEtH1NTToCWE2c_kang4_mK-jBMFugxuRUHJuROLWbFLJj86UPbxMrWszbrNcrR20cJBn0KkUpP7WpqGW2-qMYxE8Y1NmbyC0qDQDaxerqlIg4WkFowOOzU2x9msZNbPIoezHj22cP2k_f83s2bkDZLlOARdoIpeErRP"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== App Shell ====== -->
+  <div class="app-shell">
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__brand">
+          <div class="sidebar__brand-icon">
+            <span class="material-symbols-outlined filled">view_in_ar</span>
+          </div>
+          <div>
+            <h2 class="sidebar__brand-title headline-font">The Workshop</h2>
+            <p class="sidebar__brand-subtitle">AI Engine Active</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a class="sidebar__link" href="./chat.html">
+          <span class="material-symbols-outlined">forum</span>
+          <span>Chat</span>
+        </a>
+        <a class="sidebar__link sidebar__link--active" href="./my-models.html">
+          <span class="material-symbols-outlined filled">view_in_ar</span>
+          <span>My Models</span>
+        </a>
+
+        <span class="sidebar__section-label">Discovery</span>
+
+        <a class="sidebar__link" href="#">
+          <span class="material-symbols-outlined">gallery_thumbnail</span>
+          <span>Gallery</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-links">
+          <a class="sidebar__footer-link" href="#">
+            <span class="material-symbols-outlined" style="font-size:1.125rem">help</span>
+            <span>Help</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== Main Content ====== -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="models-header">
+        <div>
+          <h1 class="models-header__title headline-font">My Models</h1>
+          <p class="models-header__desc">
+            Manage and download your generated 3D assets. High-fidelity renders are available for all completed generations.
+          </p>
+        </div>
+
+        <!-- Storage Indicator -->
+        <div class="storage-card glass-panel">
+          <div class="storage-card__header">
+            <span class="storage-card__label">Storage Capacity</span>
+            <span class="storage-card__count">3 of 5</span>
+          </div>
+          <div class="storage-card__bar">
+            <div class="storage-card__bar-fill" data-percent="60"></div>
+          </div>
+          <p class="storage-card__tier">Free Tier Account</p>
+        </div>
+      </div>
+
+      <!-- Models Grid -->
+      <div class="models-grid">
+
+        <!-- Model Card 1 -->
+        <div class="model-card glass-panel">
+          <div class="model-card__image">
+            <img
+              alt="3D Cyberpunk Statue"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCJB284FBWXSThMd0sqCtl9e5C-m1g3Eq4xV0wVLckpMTXSE2Y8e8rHQ9C6tgaemWygojnX1K8hxmo70uvKngMw2GzFaEvPwKl0tb-JWbALbl7N6aSr6rHwEezGAQuJouE-Mv1HaUZNPlefbha5uL8tvn6mzTJeWM-MbzYcEqtz1SbWbYz_Si_9NRwojGsJoauqp4kaP5_tkAC0icdHWbZNuc3rTM-a22EZHkVHWYhztWQ2qGz3fAWPSGwtjXUnVpeF5U7Ix_GuEBh"
+            />
+            <span class="model-card__badge">Rendered</span>
+          </div>
+          <div class="model-card__footer">
+            <div>
+              <h3 class="model-card__name headline-font">Aether-Wing_01</h3>
+              <span class="model-card__id">ID: RF-29384-A</span>
+            </div>
+            <button class="model-card__download" data-action="download">
+              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Model Card 2 -->
+        <div class="model-card glass-panel">
+          <div class="model-card__image">
+            <img
+              alt="Organic Sculpture"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFLDgW9PO8Z2urtLKyb5GKLmq6cU9M6kAFk_H73W9sNLsn4b3JM5kOsgj53chp_KCEggWR9Cx0723vx6PclX68jNk380Pr-wwJ6VoR12B2S_Ue4WETigJkh3k7ScyRKw_uRChpsyRcamr5M4loEvK89nZhy5zZ9rXw1-3OyIWlLH7VOzkXZKeHN1hk33DEK7pNkyaZNGWLvJn60HOsfYQyc43TgRYmYiqYYWlSQyD6CGOzEoQ5efXbhTXntbuROTIQb4Ug9ngWLEPl"
+            />
+            <span class="model-card__badge">Rendered</span>
+          </div>
+          <div class="model-card__footer">
+            <div>
+              <h3 class="model-card__name headline-font">Morph_Fluid_V2</h3>
+              <span class="model-card__id">ID: RF-88122-M</span>
+            </div>
+            <button class="model-card__download" data-action="download">
+              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Model Card 3 -->
+        <div class="model-card glass-panel">
+          <div class="model-card__image">
+            <img
+              alt="Brutalist Architecture"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtiPsUummvsOOjPFVm0pgQGxnC3PPFJn1wCGz_Xtde757WfIwSyTxHY2f4ppLFpwdqqilVsvbu4ydF_Ir-KCAi1I91fHibs03LNDSA6yeY4jyWBK_pvw5u4icQTvlbQA2LvOU6tX47ZksL76KQZ5okL6dArB6y1PV_8n_edXNcCgg2UnZLi3o0uDO_J4nHYxJEvv_lmaSjggCmhgXMysmGrYms8ySuIX-RRTwcd9SOpf-QfapvQeBLQpw-NxeJ3qtWkBK5I2IUykDT"
+            />
+            <span class="model-card__badge">Rendered</span>
+          </div>
+          <div class="model-card__footer">
+            <div>
+              <h3 class="model-card__name headline-font">Brutal_Arch_Low</h3>
+              <span class="model-card__id">ID: RF-11093-B</span>
+            </div>
+            <button class="model-card__download" data-action="download">
+              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Empty Slot -->
+        <div class="model-card--empty">
+          <div class="model-card--empty__icon">
+            <span class="material-symbols-outlined">add</span>
+          </div>
+          <h3 class="model-card--empty__title headline-font">New Generation</h3>
+          <p class="model-card--empty__subtitle">2 Slots Remaining</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="bg-decoration">
+    <div class="bg-decoration__blob--blue"></div>
+    <div class="bg-decoration__blob--purple"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./scripts/shared.js"></script>
+  <script src="./scripts/my-models.js"></script>
+</body>
+</html>
