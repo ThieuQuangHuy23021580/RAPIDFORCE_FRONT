@@ -89,97 +89,61 @@
       <div class="chat-area">
         <!-- Chat Messages -->
         <section class="chat-messages" id="chatMessages">
-
-          <!-- User Message -->
-          <div class="msg msg--user">
-            <div class="msg__wrapper">
-              <div class="msg__bubble msg__bubble--user" style="display:flex;flex-direction:column;gap:0.75rem">
-                <p class="msg__text">
-                  Generating a 3D model based on this character design. Please keep the neon accents and the robotic joints visible.
-                </p>
-                <div class="msg__image">
-                  <img
-                    alt="2D Character Design"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4J6sdPMHeP-zKhfqhDeVbwOXNc4lJksHIHOS_5CnSx-qTMCsmsAFxWzKD7CBhwM4XXjuEjv64GeN4Y4nQb4mnz2YX1mA3S-eKVyilIMJX7U4Mdb_WqMb46eha14bI10s2rO4ac51parnSY4IOAOsHBdrfR7XGxfIcY1tSM4pWYK8GxhFA-mK2HY01u59tOMluY_dh3MTwPjwtWvD5B_hoDJeTUqC8aULcJ0hFfw6JTry2tB9XpkGZjb2wn9AyXtv2FNkh_n8tjfZ8"
-                  />
-                  <div class="msg__image-overlay"></div>
-                </div>
-              </div>
-              <div class="msg__timestamp">14:22 PM &bull; User</div>
-            </div>
-          </div>
-
-          <!-- AI Response Message -->
+          <!-- Welcome message -->
           <div class="msg msg--ai">
             <div class="msg__wrapper msg__wrapper--ai">
               <div class="msg__row">
                 <div class="msg__avatar">RF</div>
-                <div style="flex:1">
+                <div>
                   <div class="msg__bubble msg__bubble--ai">
-                    <p class="msg__text" style="margin-bottom:1.5rem">
-                      Conversion complete. I've successfully extruded the 2D character into a high-fidelity 3D mesh while preserving the material properties and emission maps. You can preview the model below.
-                    </p>
-
-                    <!-- 3D Preview Card -->
-                    <div class="preview-grid">
-                      <div class="preview-viewer">
-                        <img
-                          alt="3D Model Preview"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSHM3PdnVDDKqUnmSlcHOQiz26F5OxFfu001o6fJdUTf0me5o5kduCON3ZyPaULxCulE0_UyhJ-Q7aqOyfdnymgxJq6QzRaGaBaXxS62PX2J6ft8TtctRXuVdrNKjpQJ4nuIVFFzkZxmlbWVf83s-ypbwM7r6RraD_h87Mc3G0rY6oJbyFyWGiKMrrGM7To_fBDTw-iglwIpFsKxXtUFwkoLs8mv1Gyfwpztowf7pNnsK721fh2_A_jJZtxP8wyuu8gg_r1-IPottd"
-                        />
-                        <div class="preview-viewer__gradient"></div>
-                        <button class="preview-viewer__expand-btn">
-                          <span class="material-symbols-outlined">open_in_full</span>
-                        </button>
-                        <div class="preview-viewer__badge">Ready to Export</div>
-                      </div>
-
-                      <div class="preview-sidebar">
-                        <div class="preview-info">
-                          <div>
-                            <span class="preview-info__label">Asset ID</span>
-                            <code class="preview-info__value">#RF-992-KRONOS</code>
-                          </div>
-                          <div class="preview-info__stat">
-                            <span class="preview-info__label">Polygons</span>
-                            <p class="preview-info__stat-value headline-font">142.5k</p>
-                          </div>
-                        </div>
-                        <button class="preview-download-btn">
-                          <span class="material-symbols-outlined">download</span>
-                          Download .GLB
-                        </button>
-                      </div>
+                    <div class="msg__text-content">
+                      <strong>Welcome to RapidForce!</strong><br><br>
+                      Use <strong>Chat</strong> mode to ask me anything about 3D modeling, creative workflows, or general questions.<br><br>
+                      Switch to <strong>Render 3D</strong> mode to upload an image and generate a 3D model from it.
                     </div>
                   </div>
-                  <div class="msg__timestamp" style="margin-top:0.5rem">14:24 PM &bull; RapidForce AI</div>
                 </div>
               </div>
             </div>
           </div>
-
         </section>
 
         <!-- Chat Input Footer -->
         <footer class="chat-footer">
           <div class="chat-input-wrap">
+            <!-- Mode Switcher -->
+            <div class="chat-mode-tabs">
+              <button class="chat-mode-tab chat-mode-tab--active" data-mode="chat">
+                <span class="material-symbols-outlined" style="font-size:1rem">forum</span>
+                Chat
+              </button>
+              <button class="chat-mode-tab" data-mode="render">
+                <span class="material-symbols-outlined" style="font-size:1rem">view_in_ar</span>
+                Render 3D
+              </button>
+            </div>
+
             <div class="chat-input">
-              <button class="chat-input__btn" id="attachBtn" title="Choose image">
+              <!-- Render 3D controls (hidden by default) -->
+              <button class="chat-input__btn chat-input__render-only" id="attachBtn" title="Choose image">
                 <span class="material-symbols-outlined">add</span>
               </button>
               <input id="imageInput" type="file" accept="image/*" class="sr-only" />
+
               <input
                 id="chatInput"
                 class="chat-input__field"
                 type="text"
-                placeholder="Describe your 3D vision..."
+                placeholder="Ask anything..."
               />
-              <span id="selectedFileChip" class="chat-input__file-chip">
+
+              <span id="selectedFileChip" class="chat-input__file-chip chat-input__render-only">
                 <span class="chat-input__file-chip-name" id="fileChipName"></span>
                 <button type="button" class="chat-input__file-chip-remove" id="removeFileBtn" aria-label="Remove file">&times;</button>
               </span>
+
               <div class="chat-input__actions">
-                <label class="toggle-rm-bg" for="removeBgToggle" aria-label="Toggle remove background">
+                <label class="toggle-rm-bg chat-input__render-only" for="removeBgToggle" aria-label="Toggle remove background">
                   <input type="checkbox" id="removeBgToggle" />
                   <span class="toggle-rm-bg__track">
                     <span class="toggle-rm-bg__thumb"></span>

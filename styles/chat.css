@@ -258,7 +258,7 @@
 
 /* --- Chat Input Footer --- */
 .chat-footer {
-  padding: 0.5rem;
+  padding: 0.5rem 2rem 1rem;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -270,6 +270,56 @@
   max-width: 56rem;
   width: 100%;
   position: relative;
+}
+
+/* --- Mode Tabs --- */
+.chat-mode-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.chat-mode-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.chat-mode-tab:hover {
+  color: #5948d3;
+  background: rgba(89, 72, 211, 0.06);
+}
+
+.chat-mode-tab--active {
+  color: #5948d3;
+  background: rgba(89, 72, 211, 0.1);
+}
+
+/* Render-only controls: hidden in chat mode, shown in render mode */
+.chat-input__render-only {
+  display: none !important;
+}
+
+.chat-input-wrap--render .chat-input__render-only {
+  display: flex !important;
+}
+
+.chat-input-wrap--render .chat-input__render-only.chat-input__file-chip {
+  display: none !important;
+}
+
+.chat-input-wrap--render .chat-input__render-only.chat-input__file-chip.chat-input__file-chip--visible {
+  display: inline-flex !important;
 }
 
 .chat-input {
@@ -404,6 +454,45 @@
 .msg__badge--rm-bg {
   background: rgba(89, 72, 211, 0.12);
   color: #5948d3;
+}
+
+.msg__badge--render {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+/* --- AI markdown content --- */
+.msg__text-content {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #2d3337;
+}
+
+.msg__text-content code {
+  background: rgba(89, 72, 211, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.msg__text-content pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 0.75rem 1rem;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.msg__text-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.msg__text-content strong {
+  font-weight: 700;
 }
 
 /* --- Loading Dots --- */
