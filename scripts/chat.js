@@ -486,10 +486,11 @@ function appendAIResultMessage(text, downloadUrl, ext) {
           auto-rotate
           auto-rotate-delay="500"
           rotation-per-second="30deg"
-          camera-orbit="45deg 55deg auto"
+          camera-orbit="0deg 75deg 105%"
           min-camera-orbit="auto auto auto"
           max-camera-orbit="auto auto auto"
           field-of-view="30deg"
+          orientation="0deg -90deg 0deg"
           shadow-intensity="0.8"
           shadow-softness="0.6"
           exposure="1.1"

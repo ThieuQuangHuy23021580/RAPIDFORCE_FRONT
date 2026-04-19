@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RapidForce | My Models</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#c7e7ff",
+                        "outline-variant": "#acb3b7",
+                        "on-primary-fixed-variant": "#3e27b9",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#d6f7d2",
+                        "surface-tint": "#5948d3",
+                        "secondary-container": "#c7e7ff",
+                        "secondary-fixed-dim": "#a9dafe",
+                        "surface-container-highest": "#dde3e7",
+                        "on-secondary-fixed-variant": "#2d607f",
+                        "on-primary-fixed": "#210088",
+                        "error": "#ac3434",
+                        "on-secondary-container": "#225774",
+                        "error-container": "#f56965",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-dim": "#d3dbdf",
+                        "on-secondary-fixed": "#044461",
+                        "tertiary-fixed": "#d6f7d2",
+                        "error-dim": "#70030f",
+                        "secondary-dim": "#235876",
+                        "inverse-surface": "#0b0f10",
+                        "surface": "#f7f9fb",
+                        "outline": "#757c7f",
+                        "inverse-primary": "#8c7fff",
+                        "tertiary": "#4a664a",
+                        "on-error": "#fff7f6",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#e9ffe5",
+                        "primary": "#5948d3",
+                        "on-error-container": "#65000b",
+                        "primary-container": "#c0b9ff",
+                        "surface-variant": "#dde3e7",
+                        "surface-container-low": "#f1f4f6",
+                        "on-background": "#2d3337",
+                        "secondary": "#326482",
+                        "primary-dim": "#4d39c7",
+                        "tertiary-fixed-dim": "#c8e8c5",
+                        "primary-fixed-dim": "#b2a9ff",
+                        "on-tertiary-fixed-variant": "#4e694d",
+                        "on-surface": "#2d3337",
+                        "on-primary": "#fcf7ff",
+                        "surface-container-high": "#e3e9ec",
+                        "on-tertiary-fixed": "#324d32",
+                        "primary-fixed": "#c0b9ff",
+                        "on-tertiary-container": "#445f44",
+                        "on-surface-variant": "#596063",
+                        "tertiary-dim": "#3e5a3f",
+                        "surface-container": "#eaeef1",
+                        "on-primary-container": "#3518b0",
+                        "on-secondary": "#f5f9ff",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, #D5F5D1 0%, #A9DAFD 50%, #E5B1FB 100%);
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(247, 249, 251, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .headline-font { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="text-on-surface antialiased overflow-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-none">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-blue-400 to-purple-400 headline-font">RapidForce</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-slate-600 dark:text-slate-400 hover:bg-white/20 dark:hover:bg-slate-800/20 transition-all duration-300 body-md" href="#">Gallery</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-white/20 dark:hover:bg-slate-800/20 transition-all duration-300 body-md" href="#">Documentation</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-white/20 dark:hover:bg-slate-800/20 transition-all duration-300 body-md" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-semibold hover:bg-primary-dim transition-transform active:scale-95 shadow-sm">
+                Create New
+            </button>
+<div class="flex gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined p-2 rounded-full hover:bg-white/20 cursor-pointer transition-all">notifications</span>
+<span class="material-symbols-outlined p-2 rounded-full hover:bg-white/20 cursor-pointer transition-all">settings</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/20">
+<img alt="User profile" data-alt="minimalist avatar of a person with stylish glasses and a neutral expression on a soft pastel background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmJH10ahChCm1bgT3CWIm5m-4Bqybjip1JpOgXo4w-Y_JuLS564kypFA6GYautfpKvmpgLKAzZYrRWZDDaaMwSNqo0MY3lfXkBtwjcmYL2vEtH1NTToCWE2c_kang4_mK-jBMFugxuRUHJuROLWbFLJj86UPbxMrWszbrNcrR20cJBn0KkUpP7WpqGW2-qMYxE8Y1NmbyC0qDQDaxerqlIg4WkFowOOzU2x9msZNbPIoezHj22cP2k_f83s2bkDZLlOARdoIpeErRP"/>
+</div>
+</div>
+</header>
+<div class="flex h-screen pt-16">
+<!-- SideNavBar (Shared Component) -->
+<aside class="flex flex-col h-full p-4 gap-2 h-screen w-64 fixed left-0 top-16 bg-slate-50/30 dark:bg-slate-950/30 backdrop-blur-2xl border-r-0">
+<div class="px-4 py-6">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">view_in_ar</span>
+</div>
+<div>
+<h2 class="headline-font font-bold text-on-surface leading-tight">The Workshop</h2>
+<p class="text-xs font-semibold tracking-widest uppercase text-purple-500">AI Engine Active</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-white/40 transition-all duration-300 rounded-xl group active:scale-[0.97]" href="#">
+<span class="material-symbols-outlined group-hover:text-purple-500">forum</span>
+<span class="text-xs font-semibold tracking-widest uppercase">Chat</span>
+</a>
+<!-- Active Tab: My Models -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white/60 dark:bg-slate-800/60 text-purple-700 dark:text-purple-200 rounded-xl shadow-sm active:scale-[0.97]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">view_in_ar</span>
+<span class="text-xs font-semibold tracking-widest uppercase">My Models</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pb-20">
+<button class="w-full bg-surface-container-highest text-primary-dim py-3 rounded-xl font-bold text-sm hover:bg-white/50 transition-all shadow-sm">
+                    Upgrade to Pro
+                </button>
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="text-xs font-semibold tracking-widest uppercase">Help</span>
+</a>
+<a class="flex items-center gap-3 px-2 py-2 text-slate-500 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+<span class="text-xs font-semibold tracking-widest uppercase">Archive</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 overflow-y-auto px-10 py-12">
+<header class="mb-12 flex justify-between items-end">
+<div>
+<h1 class="headline-font text-5xl font-bold tracking-tighter text-on-surface mb-2">My Models</h1>
+<p class="text-on-surface-variant body-md max-w-lg">Manage and download your generated 3D assets. High-fidelity renders are available for all completed generations.</p>
+</div>
+<!-- Storage Limit Indicator (Header Element) -->
+<div class="glass-panel p-6 rounded-3xl shadow-sm border border-white/20 min-w-[240px]">
+<div class="flex justify-between items-center mb-3">
+<span class="text-xs font-bold tracking-widest uppercase text-on-surface-variant">Storage Capacity</span>
+<span class="text-sm font-bold text-primary">3 of 5</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 60%;"></div>
+</div>
+<p class="mt-3 text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold opacity-60">Free Tier Account</p>
+</div>
+</header>
+<!-- Bento Grid Layout for Models -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Model Card 1 -->
+<div class="glass-panel group rounded-[2rem] p-4 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+<div class="relative aspect-square w-full rounded-2xl overflow-hidden bg-surface-bright mb-4">
+<img alt="3D Cyberpunk Statue" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="hyper-realistic 3D render of a neon-lit cyberpunk statue of a winged figure on a dark platform with atmospheric smoke" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCJB284FBWXSThMd0sqCtl9e5C-m1g3Eq4xV0wVLckpMTXSE2Y8e8rHQ9C6tgaemWygojnX1K8hxmo70uvKngMw2GzFaEvPwKl0tb-JWbALbl7N6aSr6rHwEezGAQuJouE-Mv1HaUZNPlefbha5uL8tvn6mzTJeWM-MbzYcEqtz1SbWbYz_Si_9NRwojGsJoauqp4kaP5_tkAC0icdHWbZNuc3rTM-a22EZHkVHWYhztWQ2qGz3fAWPSGwtjXUnVpeF5U7Ix_GuEBh"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-tertiary-container/80 backdrop-blur-md rounded-full text-[10px] font-bold text-tertiary uppercase tracking-wider">
+                            Rendered
+                        </div>
+</div>
+<div class="px-2 flex justify-between items-center">
+<div>
+<h3 class="headline-font font-bold text-lg text-on-surface leading-none">Aether-Wing_01</h3>
+<span class="text-xs font-medium text-on-surface-variant opacity-60">ID: RF-29384-A</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl">download</span>
+</button>
+</div>
+</div>
+<!-- Model Card 2 -->
+<div class="glass-panel group rounded-[2rem] p-4 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+<div class="relative aspect-square w-full rounded-2xl overflow-hidden bg-surface-bright mb-4">
+<img alt="Organic Sculpture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="abstract organic 3D shape floating in white space with pearlescent textures and soft iridescent highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFLDgW9PO8Z2urtLKyb5GKLmq6cU9M6kAFk_H73W9sNLsn4b3JM5kOsgj53chp_KCEggWR9Cx0723vx6PclX68jNk380Pr-wwJ6VoR12B2S_Ue4WETigJkh3k7ScyRKw_uRChpsyRcamr5M4loEvK89nZhy5zZ9rXw1-3OyIWlLH7VOzkXZKeHN1hk33DEK7pNkyaZNGWLvJn60HOsfYQyc43TgRYmYiqYYWlSQyD6CGOzEoQ5efXbhTXntbuROTIQb4Ug9ngWLEPl"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-tertiary-container/80 backdrop-blur-md rounded-full text-[10px] font-bold text-tertiary uppercase tracking-wider">
+                            Rendered
+                        </div>
+</div>
+<div class="px-2 flex justify-between items-center">
+<div>
+<h3 class="headline-font font-bold text-lg text-on-surface leading-none">Morph_Fluid_V2</h3>
+<span class="text-xs font-medium text-on-surface-variant opacity-60">ID: RF-88122-M</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl">download</span>
+</button>
+</div>
+</div>
+<!-- Model Card 3 -->
+<div class="glass-panel group rounded-[2rem] p-4 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+<div class="relative aspect-square w-full rounded-2xl overflow-hidden bg-surface-bright mb-4">
+<img alt="Brutalist Architecture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="modern 3D architectural visualization of a brutalist concrete building with large windows and sunset lighting reflection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtiPsUummvsOOjPFVm0pgQGxnC3PPFJn1wCGz_Xtde757WfIwSyTxHY2f4ppLFpwdqqilVsvbu4ydF_Ir-KCAi1I91fHibs03LNDSA6yeY4jyWBK_pvw5u4icQTvlbQA2LvOU6tX47ZksL76KQZ5okL6dArB6y1PV_8n_edXNcCgg2UnZLi3o0uDO_J4nHYxJEvv_lmaSjggCmhgXMysmGrYms8ySuIX-RRTwcd9SOpf-QfapvQeBLQpw-NxeJ3qtWkBK5I2IUykDT"/>
+<div class="absolute top-4 right-4 px-3 py-1 bg-tertiary-container/80 backdrop-blur-md rounded-full text-[10px] font-bold text-tertiary uppercase tracking-wider">
+                            Rendered
+                        </div>
+</div>
+<div class="px-2 flex justify-between items-center">
+<div>
+<h3 class="headline-font font-bold text-lg text-on-surface leading-none">Brutal_Arch_Low</h3>
+<span class="text-xs font-medium text-on-surface-variant opacity-60">ID: RF-11093-B</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all active:scale-90">
+<span class="material-symbols-outlined text-xl">download</span>
+</button>
+</div>
+</div>
+<!-- Empty State / Placeholder Slot -->
+<div class="border-2 border-dashed border-white/30 rounded-[2rem] p-4 flex flex-col items-center justify-center min-h-[340px] transition-colors hover:border-primary/40 hover:bg-white/10 group cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-on-surface-variant group-hover:text-primary">add</span>
+</div>
+<h3 class="headline-font font-bold text-lg text-on-surface-variant">New Generation</h3>
+<p class="text-xs font-medium text-on-surface-variant opacity-40 uppercase tracking-widest mt-1">2 Slots Remaining</p>
+</div>
+</div>
+</main>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-400/10 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-400/10 blur-[120px]"></div>
+</div>
+</body></html>
