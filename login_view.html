@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | Đăng Nhập</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./login_view.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-bg">
+    <div class="auth-bg__blob auth-bg__blob--left"></div>
+    <div class="auth-bg__blob auth-bg__blob--right"></div>
+  </div>
+
+  <main class="auth-container">
+    <section class="glass-panel auth-card">
+      <header class="auth-brand">
+        <div class="auth-brand__logo">
+          <span class="material-symbols-outlined filled">auto_awesome</span>
+        </div>
+        <h1 class="headline-font auth-brand__title">RapidForce</h1>
+        <p class="auth-brand__subtitle">Đăng nhập để tạo mô hình 3D cho riêng bạn</p>
+      </header>
+
+      <form class="auth-form" id="loginForm">
+        <div class="auth-field">
+          <label class="auth-label" for="email">Email</label>
+          <div class="auth-input-wrap">
+            <span class="material-symbols-outlined">mail</span>
+            <input
+              id="email"
+              class="auth-input"
+              type="email"
+              placeholder="name@company.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label class="auth-label" for="password">Password</label>
+          <div class="auth-input-wrap">
+            <span class="material-symbols-outlined">lock</span>
+            <input
+              id="password"
+              class="auth-input"
+              type="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              class="auth-password-toggle"
+              id="togglePasswordBtn"
+              type="button"
+              aria-label="Show or hide password"
+            >
+              <span class="material-symbols-outlined" id="togglePasswordIcon">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-meta">
+          <label class="auth-remember" for="rememberMe">
+            <input id="rememberMe" type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-link">Forgot password?</a>
+        </div>
+
+        <button class="auth-submit" type="submit">Đăng nhập</button>
+        <p id="loginStatus" class="auth-footer" style="margin-top:0.4rem; text-align:left;"></p>
+      </form>
+
+      <p class="auth-footer">
+        Chưa có tài khoản?
+        <a href="./register_view.html" class="auth-link">Đăng ký</a>
+      </p>
+      <p class="auth-guest">
+        <a href="./chat.html" class="auth-link">Tiếp tục với vai trò khách</a>
+      </p>
+    </section>
+
+    <p class="auth-bottom">© 2026 RapidForce AI</p>
+  </main>
+
+  <script>
+    const AUTH_STORAGE_KEY = "rapidforce_auth_logged_in";
+    const AUTH_USER_KEY = "rapidforce_auth_user";
+    const API_BASE_URL = "http://localhost:8000";
+    const form = document.getElementById("loginForm");
+    const toggleBtn = document.getElementById("togglePasswordBtn");
+    const passwordInput = document.getElementById("password");
+    const toggleIcon = document.getElementById("togglePasswordIcon");
+    const statusText = document.getElementById("loginStatus");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const emailInput = document.getElementById("email");
+
+    toggleBtn.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
+      passwordInput.type = isHidden ? "text" : "password";
+      toggleIcon.textContent = isHidden ? "visibility_off" : "visibility";
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusText.textContent = "";
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      submitBtn.textContent = "Đang đăng nhập...";
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: emailInput.value.trim(),
+            password: passwordInput.value,
+          }),
+        });
+
+        if (!response.ok) {
+          let detail = "";
+          try {
+            detail = await response.text();
+          } catch (_) {
+            detail = "";
+          }
+
+          if (response.status === 401) {
+            throw new Error("Email hoặc mật khẩu không đúng.");
+          }
+          if (response.status === 404) {
+            throw new Error("Backend hiện không có endpoint /auth/login. Hãy kiểm tra lại service auth ở cổng 8000.");
+          }
+          if (response.status === 400) {
+            throw new Error(detail || "Thông tin đăng nhập chưa hợp lệ.");
+          }
+          throw new Error(detail || `Đăng nhập thất bại (${response.status}).`);
+        }
+
+        const user = await response.json();
+        localStorage.setItem(AUTH_STORAGE_KEY, "true");
+        localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+        window.location.href = "./chat.html";
+      } catch (error) {
+        statusText.textContent = error.message || "Không thể kết nối API đăng nhập.";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.textContent = "Đăng nhập";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -19,6 +19,11 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="./styles/shared.css" />
   <link rel="stylesheet" href="./styles/my-models.css" />
+  <script>
+    if (new URLSearchParams(window.location.search).get("embed") === "1") {
+      document.documentElement.classList.add("embed-mode");
+    }
+  </script>
 </head>
 
 <body>
@@ -65,13 +70,6 @@
           <span class="material-symbols-outlined filled">view_in_ar</span>
           <span>My Models</span>
         </a>
-
-        <span class="sidebar__section-label">Discovery</span>
-
-        <a class="sidebar__link" href="#">
-          <span class="material-symbols-outlined">gallery_thumbnail</span>
-          <span>Gallery</span>
-        </a>
       </nav>
 
       <div class="sidebar__footer">
@@ -99,88 +97,18 @@
         <div class="storage-card glass-panel">
           <div class="storage-card__header">
             <span class="storage-card__label">Storage Capacity</span>
-            <span class="storage-card__count">3 of 5</span>
+            <span class="storage-card__count" id="storageCount">0 of 5</span>
           </div>
           <div class="storage-card__bar">
-            <div class="storage-card__bar-fill" data-percent="60"></div>
+            <div class="storage-card__bar-fill" id="storageBarFill" data-percent="0"></div>
           </div>
           <p class="storage-card__tier">Free Tier Account</p>
         </div>
       </div>
 
       <!-- Models Grid -->
-      <div class="models-grid">
-
-        <!-- Model Card 1 -->
-        <div class="model-card glass-panel">
-          <div class="model-card__image">
-            <img
-              alt="3D Cyberpunk Statue"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCJB284FBWXSThMd0sqCtl9e5C-m1g3Eq4xV0wVLckpMTXSE2Y8e8rHQ9C6tgaemWygojnX1K8hxmo70uvKngMw2GzFaEvPwKl0tb-JWbALbl7N6aSr6rHwEezGAQuJouE-Mv1HaUZNPlefbha5uL8tvn6mzTJeWM-MbzYcEqtz1SbWbYz_Si_9NRwojGsJoauqp4kaP5_tkAC0icdHWbZNuc3rTM-a22EZHkVHWYhztWQ2qGz3fAWPSGwtjXUnVpeF5U7Ix_GuEBh"
-            />
-            <span class="model-card__badge">Rendered</span>
-          </div>
-          <div class="model-card__footer">
-            <div>
-              <h3 class="model-card__name headline-font">Aether-Wing_01</h3>
-              <span class="model-card__id">ID: RF-29384-A</span>
-            </div>
-            <button class="model-card__download" data-action="download">
-              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Model Card 2 -->
-        <div class="model-card glass-panel">
-          <div class="model-card__image">
-            <img
-              alt="Organic Sculpture"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFLDgW9PO8Z2urtLKyb5GKLmq6cU9M6kAFk_H73W9sNLsn4b3JM5kOsgj53chp_KCEggWR9Cx0723vx6PclX68jNk380Pr-wwJ6VoR12B2S_Ue4WETigJkh3k7ScyRKw_uRChpsyRcamr5M4loEvK89nZhy5zZ9rXw1-3OyIWlLH7VOzkXZKeHN1hk33DEK7pNkyaZNGWLvJn60HOsfYQyc43TgRYmYiqYYWlSQyD6CGOzEoQ5efXbhTXntbuROTIQb4Ug9ngWLEPl"
-            />
-            <span class="model-card__badge">Rendered</span>
-          </div>
-          <div class="model-card__footer">
-            <div>
-              <h3 class="model-card__name headline-font">Morph_Fluid_V2</h3>
-              <span class="model-card__id">ID: RF-88122-M</span>
-            </div>
-            <button class="model-card__download" data-action="download">
-              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Model Card 3 -->
-        <div class="model-card glass-panel">
-          <div class="model-card__image">
-            <img
-              alt="Brutalist Architecture"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtiPsUummvsOOjPFVm0pgQGxnC3PPFJn1wCGz_Xtde757WfIwSyTxHY2f4ppLFpwdqqilVsvbu4ydF_Ir-KCAi1I91fHibs03LNDSA6yeY4jyWBK_pvw5u4icQTvlbQA2LvOU6tX47ZksL76KQZ5okL6dArB6y1PV_8n_edXNcCgg2UnZLi3o0uDO_J4nHYxJEvv_lmaSjggCmhgXMysmGrYms8ySuIX-RRTwcd9SOpf-QfapvQeBLQpw-NxeJ3qtWkBK5I2IUykDT"
-            />
-            <span class="model-card__badge">Rendered</span>
-          </div>
-          <div class="model-card__footer">
-            <div>
-              <h3 class="model-card__name headline-font">Brutal_Arch_Low</h3>
-              <span class="model-card__id">ID: RF-11093-B</span>
-            </div>
-            <button class="model-card__download" data-action="download">
-              <span class="material-symbols-outlined" style="font-size:1.25rem">download</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Empty Slot -->
-        <div class="model-card--empty">
-          <div class="model-card--empty__icon">
-            <span class="material-symbols-outlined">add</span>
-          </div>
-          <h3 class="model-card--empty__title headline-font">New Generation</h3>
-          <p class="model-card--empty__subtitle">2 Slots Remaining</p>
-        </div>
-
-      </div>
+      <p class="models-status" id="modelsStatus" hidden></p>
+      <div class="models-grid" id="modelsGrid"></div>
     </main>
   </div>
 

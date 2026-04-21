@@ -2,6 +2,28 @@
    RapidForce — My Models Page
    =========================== */
 
+html.embed-mode .topnav,
+html.embed-mode .sidebar,
+html.embed-mode .bg-decoration {
+  display: none !important;
+}
+
+html.embed-mode .app-shell {
+  display: flex;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+html.embed-mode .main-content {
+  margin-left: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  padding-top: 0;
+  overflow-y: auto;
+}
+
 /* --- Page Header --- */
 .models-header {
   display: flex;
@@ -90,10 +112,20 @@
   padding: 0 2.5rem 3rem;
 }
 
+.models-status {
+  margin: 0 2.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #596063;
+}
+
 /* --- Model Card --- */
 .model-card {
   border-radius: 2rem;
   padding: 1rem;
+  width: 66.6667%;
+  max-width: 100%;
+  justify-self: center;
   transition: all 0.5s;
 }
 
@@ -117,6 +149,17 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.7s;
+}
+
+.model-card__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.model-card__image--placeholder .material-symbols-outlined {
+  font-size: 3rem;
+  color: rgba(89, 72, 211, 0.45);
 }
 
 .model-card:hover .model-card__image img {
@@ -159,15 +202,59 @@
   opacity: 0.6;
 }
 
+.model-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  color: #596063;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+.model-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .model-card__download {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 9999px;
   background: #dde3e7;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  cursor: pointer;
+}
+
+.model-card__delete {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #dde3e7;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  color: #596063;
+}
+
+.model-card__delete:hover:not(:disabled) {
+  background: #fecaca;
+  color: #b91c1c;
+}
+
+.model-card__delete:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .model-card__download:hover {
@@ -184,6 +271,9 @@
   border: 2px dashed rgba(255, 255, 255, 0.3);
   border-radius: 2rem;
   padding: 1rem;
+  width: 66.6667%;
+  max-width: 100%;
+  justify-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
