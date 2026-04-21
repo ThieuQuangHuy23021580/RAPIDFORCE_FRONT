@@ -76,7 +76,7 @@ body.welcome-page {
   font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--wp-on-bg);
+  color: var(--wp-primary);
   text-decoration: none;
   flex-shrink: 0;
 }
