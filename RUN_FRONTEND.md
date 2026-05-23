@@ -1,3 +1,8 @@
 python -m http.server 5500
 
-taskkill /PID 5500 /F
+netstat -ano | findstr LISTENING
+
+netstat -ano | findstr :5500
+
+taskkill /PID <port> /F
+

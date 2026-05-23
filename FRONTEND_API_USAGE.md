@@ -7,7 +7,7 @@ File này hướng dẫn cách để một project frontend khác gọi API củ
 Dự án hiện có **2 backend API**:
 
 - `fastapi_app.py` — ảnh 2D -> model 3D (`TripoSR`)
-- `qwen_api.py` — chat AI (`Qwen3-1.7B`)
+- `qwen3/` package — chat AI (`Qwen3-1.7B`) + RAG, tối ưu cho CPU bằng llama.cpp
 
 Frontend có thể là:
 
@@ -32,24 +32,35 @@ Sau khi chạy:
 - Swagger UI: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/health`
 
-### Service 2: Chat AI (Qwen3-1.7B)
+### Service 2: Chat AI + RAG (Qwen3-1.7B)
 
 ```bash
-.\.venv\Scripts\python.exe -m uvicorn qwen_api:app --host 0.0.0.0 --port 8001
+# Package mới (nhanh hơn 5-10x trên CPU nhờ llama.cpp + GGUF)
+.\.venv\Scripts\python.exe -m qwen3
 ```
 
 Sau khi chạy:
 
 - Swagger UI: `http://localhost:8001/docs`
 - Health check: `http://localhost:8001/health`
+- Backend tự chọn: **llama.cpp (GGUF)** nếu có, fallback sang **transformers**
 
 ### Tổng quan kiến trúc
 
 ```
 Frontend (HTML + JS)
     |
-    |--- POST /generate  --> localhost:8000  (3D model)
-    |--- POST /chat       --> localhost:8001  (AI chat)
+    |--- POST /generate        --> localhost:8000  (3D model file)
+    |--- POST /generate/store  --> localhost:8000  (3D model + Cloudinary + DB)
+    |--- POST /auth/register   --> localhost:8000  (register user)
+    |--- POST /auth/login      --> localhost:8000  (login user)
+    |--- GET  /models          --> localhost:8000  (list models)
+    |--- GET  /users           --> localhost:8000  (list users)
+    |--- GET  /users/{id}/models --> localhost:8000  (list models by user)
+    |--- DELETE /users/{id}/models/{mid} --> localhost:8000  (delete one model for user)
+    |--- POST /chat        --> localhost:8001  (AI chat)
+    |--- POST /rag/index   --> localhost:8001  (re-index tài liệu)
+    |--- GET  /rag/stats   --> localhost:8001  (thống kê RAG)
 ```
 
 ## 2. API Service 1: 3D Generation (port 8000)
@@ -106,7 +117,244 @@ Khuyến nghị:
 - dùng `glb` nếu frontend muốn preview bằng `Three.js`
 - dùng `obj` nếu project của bạn đang xử lý pipeline cũ đã quen với OBJ
 
-## 3. API Service 2: Chat AI (port 8001)
+### `POST /generate/store`
+
+Endpoint mở rộng để vừa tạo model, vừa lưu trữ cloud và metadata.
+
+#### Content-Type
+
+`multipart/form-data`
+
+#### Form fields
+
+- Toàn bộ field của `/generate`:
+  - `image`
+  - `remove_background_flag`
+  - `foreground_ratio`
+  - `mc_resolution`
+  - `output_format`
+- Field lưu trữ:
+  - `compress_draco`: `true` hoặc `false` (mặc định `true`)
+  - `user_id`: số nguyên, tùy chọn
+  - `user_name`: chuỗi, tùy chọn (nếu không có `user_id`)
+  - `image_url`: URL ảnh gốc, tùy chọn (dùng để frontend lưu liên kết ảnh đầu vào)
+
+#### Response
+
+```json
+{
+  "model_id": 1,
+  "url": "https://res.cloudinary.com/.../outputs/xxx.glb",
+  "image_url": "https://cdn.example.com/input/image_001.png",
+  "size_mb": 2.34,
+  "user_id": 1,
+  "blob_name": "outputs/xxx.glb"
+}
+```
+
+#### Quy tắc giới hạn model theo user
+
+- Mỗi `user_id` lưu tối đa `5` model.
+- Nếu đã đạt giới hạn, API trả về `409` và không lưu thêm model mới.
+
+Ví dụ lỗi:
+
+```json
+{
+  "detail": "User reached max 5 models. Delete old models or use another user."
+}
+```
+
+### `GET /models`
+
+Danh sách model đã lưu.
+
+Query params:
+- `limit` (mặc định `50`, tối đa `200`)
+- `offset` (mặc định `0`)
+
+Ví dụ:
+
+```json
+[
+  {
+    "model_id": 1,
+    "url": "https://res.cloudinary.com/.../outputs/xxx.glb",
+    "image_url": "https://cdn.example.com/input/image_001.png",
+    "size_mb": 2.34,
+    "user_id": 1,
+    "created_at": "2026-04-20T10:11:23.378809"
+  }
+]
+```
+
+### `GET /models/{model_id}`
+
+Chi tiết một model theo id.
+
+### `GET /users`
+
+Danh sách user.
+
+Query params:
+- `limit` (mặc định `50`, tối đa `200`)
+- `offset` (mặc định `0`)
+
+Ví dụ:
+
+```json
+[
+  {
+    "user_id": 1,
+    "user_name": "demo_user",
+    "first_name": "Demo",
+    "last_name": "User",
+    "email": "demo@example.com",
+    "model_count": 3
+  }
+]
+```
+
+### `GET /users/{user_id}`
+
+Chi tiết một user theo id.
+
+### `GET /users/{user_id}/models`
+
+Lấy danh sách model của một user bằng `user_id`.
+
+Query params:
+- `limit` (mặc định `50`, tối đa `200`)
+- `offset` (mặc định `0`)
+
+Ví dụ:
+
+```json
+[
+  {
+    "model_id": 9,
+    "url": "https://res.cloudinary.com/.../outputs/u1_9.glb",
+    "image_url": "https://cdn.example.com/input/u1_9.png",
+    "size_mb": 2.56,
+    "user_id": 1,
+    "created_at": "2026-04-20T12:22:10.100000"
+  },
+  {
+    "model_id": 8,
+    "url": "https://res.cloudinary.com/.../outputs/u1_8.glb",
+    "image_url": "https://cdn.example.com/input/u1_8.png",
+    "size_mb": 2.31,
+    "user_id": 1,
+    "created_at": "2026-04-20T12:10:05.000000"
+  }
+]
+```
+
+### `DELETE /users/{user_id}/models/{model_id}`
+
+Xóa một model cụ thể **chỉ khi** model đó thuộc đúng `user_id` trong URL. Sau khi xóa, `model_count` của user được cập nhật lại theo số model còn lại trong DB.
+
+#### Response thành công (`200`)
+
+```json
+{
+  "ok": true,
+  "model_id": 9,
+  "user_id": 1
+}
+```
+
+#### Lỗi thường gặp
+
+- `404`: user không tồn tại, hoặc model không tồn tại
+- `403`: model tồn tại nhưng không thuộc `user_id` này (hoặc model chưa gán `user_id`)
+
+Ví dụ `fetch` từ JS:
+
+```js
+await fetch(`http://localhost:8000/users/${userId}/models/${modelId}`, { method: "DELETE" });
+```
+
+### `POST /auth/register`
+
+Đăng ký user mới bằng thông tin cơ bản.
+
+#### Content-Type
+
+`application/json`
+
+#### Request body
+
+```json
+{
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "email": "minh@example.com",
+  "password": "123456"
+}
+```
+
+#### Rules
+
+- `first_name`: bắt buộc, không rỗng
+- `last_name`: bắt buộc, không rỗng
+- `email`: bắt buộc, phải đúng format email
+- `password`: bắt buộc, tối thiểu 6 ký tự
+
+#### Response thành công
+
+```json
+{
+  "user_id": 12,
+  "user_name": "Minh Nguyen",
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "email": "minh@example.com"
+}
+```
+
+#### Error thường gặp
+
+- `409`: email đã tồn tại
+- `400`: thiếu field hoặc sai format
+
+### `POST /auth/login`
+
+Đăng nhập bằng email + password.
+
+#### Content-Type
+
+`application/json`
+
+#### Request body
+
+```json
+{
+  "email": "minh@example.com",
+  "password": "123456"
+}
+```
+
+#### Response thành công
+
+```json
+{
+  "user_id": 12,
+  "user_name": "Minh Nguyen",
+  "first_name": "Minh",
+  "last_name": "Nguyen",
+  "email": "minh@example.com"
+}
+```
+
+#### Error thường gặp
+
+- `401`: email hoặc password sai  
+- `400`: thiếu field hoặc email sai format
+
+## 3. API Service 2: Chat AI + RAG (port 8001)
+
+> **Phiên bản mới**: package `qwen3/` thay thế `qwen_api.py` cũ, nhanh hơn 5-10x trên CPU nhờ llama.cpp + GGUF, và hỗ trợ RAG.
 
 ### `GET /health`
 
@@ -117,8 +365,8 @@ Ví dụ response:
 ```json
 {
   "status": "ok",
-  "model": "Qwen/Qwen3-1.7B-Instruct",
-  "device": "cpu"
+  "backend": "llama.cpp (GGUF)",
+  "rag_docs": 42
 }
 ```
 
@@ -137,7 +385,7 @@ Endpoint chính để frontend gửi câu hỏi và nhận câu trả lời từ
 ```json
 {
   "prompt": "Giải thích machine learning ngắn gọn",
-  "max_new_tokens": 200,
+  "max_new_tokens": 512,
   "temperature": 0.7
 }
 ```
@@ -150,7 +398,7 @@ Endpoint chính để frontend gửi câu hỏi và nhận câu trả lời từ
     {"role": "system", "content": "Bạn là trợ lý AI."},
     {"role": "user", "content": "MongoDB là gì?"}
   ],
-  "max_new_tokens": 300,
+  "max_new_tokens": 512,
   "temperature": 0.7
 }
 ```
@@ -160,16 +408,18 @@ Endpoint chính để frontend gửi câu hỏi và nhận câu trả lời từ
 ```json
 {
   "prompt": "Giải thích neural network",
-  "max_new_tokens": 200,
+  "max_new_tokens": 512,
   "stream": true
 }
 ```
+
+RAG được bật tự động nếu knowledge base có dữ liệu, không cần gửi `use_rag`.
 
 #### Tham số
 
 - `prompt`: chuỗi câu hỏi đơn giản (bỏ qua nếu có `messages`)
 - `messages`: mảng conversation history đầy đủ (ưu tiên hơn `prompt`)
-- `max_new_tokens`: số token tối đa sinh ra, từ `1` đến `2048`, mặc định `200`
+- `max_new_tokens`: số token tối đa sinh ra, từ `1` đến `4096`, mặc định `512`
 - `temperature`: độ sáng tạo, từ `0.0` đến `2.0`, mặc định `0.7`
 - `stream`: `true` để nhận streaming, `false` để nhận JSON, mặc định `false`
 
@@ -177,13 +427,37 @@ Endpoint chính để frontend gửi câu hỏi và nhận câu trả lời từ
 
 ```json
 {
-  "answer": "Machine learning là một nhánh của trí tuệ nhân tạo..."
+  "answer": "Machine learning là một nhánh của trí tuệ nhân tạo...",
+  "backend": "llama.cpp (GGUF)",
+  "rag_used": true
 }
 ```
 
 #### Response (stream)
 
 Trả về `text/plain` với nội dung được gửi từng phần qua HTTP chunked response.
+
+### `POST /rag/index`
+
+Re-index tất cả tài liệu trong thư mục `qwen3/knowledge/`.
+
+```js
+const res = await fetch("http://localhost:8001/rag/index", { method: "POST" });
+const data = await res.json();
+// { "indexed_chunks": 156, "total_chunks": 156 }
+```
+
+### `GET /rag/stats`
+
+Xem thống kê RAG hiện tại.
+
+```json
+{
+  "total_chunks": 156,
+  "knowledge_dir": "D:/path/to/qwen3/knowledge",
+  "embed_model": "all-MiniLM-L6-v2"
+}
+```
 
 ### Ví dụ gọi `/chat` từ JS (không stream)
 
@@ -194,7 +468,7 @@ async function askQwen(prompt) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       prompt: prompt,
-      max_new_tokens: 200,
+      max_new_tokens: 512,
       temperature: 0.7,
     }),
   });
@@ -206,6 +480,11 @@ async function askQwen(prompt) {
   const data = await response.json();
   return data.answer;
 }
+
+// Chat bình thường
+const answer1 = await askQwen("Giải thích machine learning");
+// Nếu knowledge base có dữ liệu, RAG sẽ tự động được dùng khi phù hợp.
+const answer2 = await askQwen("TripoSR hoạt động thế nào?");
 ```
 
 ### Ví dụ gọi `/chat` từ JS (streaming)
@@ -523,6 +802,9 @@ Frontend cần biết:
 - URL của 2 backend
 - endpoint `/health` (cả 2 service)
 - endpoint `/generate` (port 8000) — gửi `FormData`, nhận file 3D
+- endpoint `/generate/store` (port 8000) — gửi `FormData`, nhận URL Cloudinary + metadata DB
+- endpoint `/auth/register`, `/auth/login` (port 8000) — đăng ký/đăng nhập bằng email + password
+- endpoint `/models`, `/users`, `/users/{id}/models`, `DELETE /users/{id}/models/{model_id}` (port 8000) — lấy/xóa dữ liệu user/model đã lưu
 - endpoint `/chat` (port 8001) — gửi `JSON`, nhận text
 - tham số của từng endpoint
 
@@ -554,23 +836,36 @@ Frontend cần nhớ:
 ### Cho 3D Generation (port 8000)
 
 1. Chạy backend `fastapi_app.py`
-2. Gọi `POST /generate` bằng `FormData`
-3. Nhận file `.glb` hoặc `.obj`
-4. Download hoặc preview bằng `Three.js`
+2. Với user mới, gọi `POST /auth/register`; đăng nhập gọi `POST /auth/login`
+3. Gọi `POST /generate` để lấy file trực tiếp (download/preview ngay), hoặc `POST /generate/store` để lưu cloud + DB
+4. Dùng `GET /models`, `GET /users`, `GET /users/{id}/models` để render lịch sử theo user; dùng `DELETE /users/{id}/models/{model_id}` để xóa một bản ghi
+5. Download hoặc preview bằng URL trong response
 
-### Cho Chat AI (port 8001)
+### Cho Chat AI + RAG (port 8001)
 
-1. Chạy backend `qwen_api.py`
-2. Gọi `POST /chat` bằng `JSON`
-3. Nhận `answer` hoặc stream token
-4. Hiển thị câu trả lời lên UI
+1. Chạy backend `python -m qwen3`
+2. (Tuỳ chọn) Đặt tài liệu vào `qwen3/knowledge/` để dùng RAG
+3. Gọi `POST /chat` bằng `JSON` (RAG sẽ tự dùng khi knowledge base có dữ liệu)
+4. Nhận `answer` hoặc stream token
+5. Gọi `POST /rag/index` nếu thêm tài liệu mới
 
 ### Bảng tham chiếu nhanh
 
-| Chức năng       | Service          | Port   | Endpoint        | Input            | Output          |
-|-----------------|------------------|--------|-----------------|------------------|-----------------|
-| Health check 3D | `fastapi_app.py` | `8000` | `GET /health`   | —                | JSON status     |
-| Generate 3D     | `fastapi_app.py` | `8000` | `POST /generate`| `FormData` ảnh   | file `.glb/.obj`|
-| Health check AI | `qwen_api.py`    | `8001` | `GET /health`   | —                | JSON status     |
-| Chat AI         | `qwen_api.py`    | `8001` | `POST /chat`    | JSON prompt      | JSON answer     |
-| Chat AI stream  | `qwen_api.py`    | `8001` | `POST /chat`    | JSON + stream    | text stream     |
+| Chức năng         | Service          | Port   | Endpoint            | Input          | Output                    |
+|-------------------|------------------|--------|---------------------|----------------|---------------------------|
+| Health check 3D   | `fastapi_app.py` | `8000` | `GET /health`       | —              | JSON status               |
+| Generate 3D       | `fastapi_app.py` | `8000` | `POST /generate`    | `FormData` ảnh | file `.glb/.obj`          |
+| Generate + Store  | `fastapi_app.py` | `8000` | `POST /generate/store` | `FormData` ảnh + `image_url` (optional) | JSON metadata + cloud URL (giới hạn 5 model/user) |
+| Register          | `fastapi_app.py` | `8000` | `POST /auth/register`  | JSON user info | JSON user profile         |
+| Login             | `fastapi_app.py` | `8000` | `POST /auth/login`     | JSON credentials | JSON user profile       |
+| List models       | `fastapi_app.py` | `8000` | `GET /models`       | query params   | JSON list                 |
+| Model detail      | `fastapi_app.py` | `8000` | `GET /models/{id}`  | path param     | JSON object               |
+| List users        | `fastapi_app.py` | `8000` | `GET /users`        | query params   | JSON list                 |
+| User detail       | `fastapi_app.py` | `8000` | `GET /users/{id}`   | path param     | JSON object               |
+| Models by user    | `fastapi_app.py` | `8000` | `GET /users/{id}/models` | query params | JSON list            |
+| Delete user model | `fastapi_app.py` | `8000` | `DELETE /users/{id}/models/{model_id}` | path params | JSON ok + ids        |
+| Health check AI   | `qwen3` package  | `8001` | `GET /health`       | —              | JSON status               |
+| Chat AI           | `qwen3` package  | `8001` | `POST /chat`        | JSON prompt    | JSON answer               |
+| Chat AI stream    | `qwen3` package  | `8001` | `POST /chat`        | JSON + stream  | text stream               |
+| RAG re-index      | `qwen3` package  | `8001` | `POST /rag/index`   | —              | JSON stats                |
+| RAG stats         | `qwen3` package  | `8001` | `GET /rag/stats`    | —              | JSON stats                |
