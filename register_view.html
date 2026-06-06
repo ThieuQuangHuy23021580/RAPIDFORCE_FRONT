@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | Đăng Ký</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./register_view.css" />
+</head>
+<body class="register-page">
+  <div class="register-bg">
+    <div class="register-bg__blob register-bg__blob--left"></div>
+    <div class="register-bg__blob register-bg__blob--right"></div>
+  </div>
+
+  <main class="register-container">
+    <section class="glass-panel register-card">
+      <header class="register-brand">
+        <div class="register-brand__logo">
+          <span class="material-symbols-outlined filled">auto_awesome</span>
+        </div>
+        <h1 class="headline-font register-brand__title">RapidForce</h1>
+        <p class="register-brand__subtitle">Tạo tài khoản để tạo mô hình 3D cho riêng bạn</p>
+      </header>
+
+      <form class="register-form" id="registerForm">
+        <div class="register-grid">
+          <div class="register-field">
+            <label class="register-label" for="firstName">First Name</label>
+            <div class="register-input-wrap">
+              <span class="material-symbols-outlined">person</span>
+              <input
+                id="firstName"
+                class="register-input"
+                type="text"
+                placeholder="Nguyen"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+          </div>
+          <div class="register-field">
+            <label class="register-label" for="lastName">Last Name</label>
+            <div class="register-input-wrap">
+              <span class="material-symbols-outlined">badge</span>
+              <input
+                id="lastName"
+                class="register-input"
+                type="text"
+                placeholder="Van A"
+                autocomplete="family-name"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="register-field">
+          <label class="register-label" for="regEmail">Email</label>
+          <div class="register-input-wrap">
+            <span class="material-symbols-outlined">mail</span>
+            <input
+              id="regEmail"
+              class="register-input"
+              type="email"
+              placeholder="name@company.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="register-grid">
+          <div class="register-field">
+            <label class="register-label" for="regPassword">Password</label>
+            <div class="register-input-wrap">
+              <span class="material-symbols-outlined">lock</span>
+              <input
+                id="regPassword"
+                class="register-input"
+                type="password"
+                placeholder="Tối thiểu 6 ký tự"
+                autocomplete="new-password"
+                minlength="6"
+                required
+              />
+            </div>
+          </div>
+          <div class="register-field">
+            <label class="register-label" for="regConfirm">Confirm</label>
+            <div class="register-input-wrap">
+              <span class="material-symbols-outlined">verified_user</span>
+              <input
+                id="regConfirm"
+                class="register-input"
+                type="password"
+                placeholder="Nhập lại mật khẩu"
+                autocomplete="new-password"
+                minlength="6"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <label class="register-terms" for="acceptTerms">
+          <input id="acceptTerms" type="checkbox" required />
+          <span>
+            Tôi đồng ý với <a href="#" class="register-link">Điều khoản</a> và
+            <a href="#" class="register-link">Chính sách bảo mật</a>.
+          </span>
+        </label>
+
+        <button class="register-submit" type="submit">Đăng ký</button>
+        <p id="registerStatus" class="register-footer" style="margin-top:0.4rem; text-align:left;"></p>
+      </form>
+
+      <p class="register-footer">
+        Đã có tài khoản?
+        <a href="./login_view.html" class="register-link">Đăng nhập</a>
+      </p>
+      <p class="register-guest">
+        <a href="./chat.html" class="register-link">Tiếp tục với vai trò khách</a>
+      </p>
+    </section>
+
+    <p class="register-bottom">© 2026 RapidForce AI</p>
+  </main>
+
+  <script>
+    const AUTH_STORAGE_KEY = "rapidforce_auth_logged_in";
+    const AUTH_USER_KEY = "rapidforce_auth_user";
+    const API_BASE_URL = "http://localhost:8000";
+    const registerForm = document.getElementById("registerForm");
+    const submitBtn = registerForm.querySelector('button[type="submit"]');
+    const statusText = document.getElementById("registerStatus");
+    const firstNameInput = document.getElementById("firstName");
+    const lastNameInput = document.getElementById("lastName");
+    const emailInput = document.getElementById("regEmail");
+    const passwordInput = document.getElementById("regPassword");
+    const confirmInput = document.getElementById("regConfirm");
+
+    registerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusText.textContent = "";
+
+      if (passwordInput.value !== confirmInput.value) {
+        confirmInput.setCustomValidity("Mật khẩu xác nhận không khớp.");
+        confirmInput.reportValidity();
+        return;
+      }
+
+      confirmInput.setCustomValidity("");
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      submitBtn.textContent = "Đang đăng ký...";
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            first_name: firstNameInput.value.trim(),
+            last_name: lastNameInput.value.trim(),
+            email: emailInput.value.trim(),
+            password: passwordInput.value,
+          }),
+        });
+
+        if (!response.ok) {
+          let detail = "";
+          try {
+            detail = await response.text();
+          } catch (_) {
+            detail = "";
+          }
+
+          if (response.status === 409) {
+            throw new Error("Email đã tồn tại, vui lòng dùng email khác.");
+          }
+          if (response.status === 404) {
+            throw new Error("Backend hiện không có endpoint /auth/register. Hãy kiểm tra lại service auth ở cổng 8000.");
+          }
+          if (response.status === 400) {
+            throw new Error(detail || "Thông tin đăng ký chưa hợp lệ.");
+          }
+          throw new Error(detail || `Đăng ký thất bại (${response.status}).`);
+        }
+
+        const user = await response.json();
+        localStorage.setItem(AUTH_STORAGE_KEY, "true");
+        localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+        window.location.href = "./chat.html";
+      } catch (error) {
+        statusText.textContent = error.message || "Không thể kết nối API đăng ký.";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.textContent = "Đăng ký";
+      }
+    });
+
+    confirmInput.addEventListener("input", () => {
+      confirmInput.setCustomValidity("");
+    });
+  </script>
+</body>
+</html>

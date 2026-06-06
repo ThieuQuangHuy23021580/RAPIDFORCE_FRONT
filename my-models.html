@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | My Models</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Material Symbols -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./styles/my-models.css" />
+  <script>
+    if (new URLSearchParams(window.location.search).get("embed") === "1") {
+      document.documentElement.classList.add("embed-mode");
+    }
+  </script>
+</head>
+
+<body>
+  <!-- ====== Top Navigation ====== -->
+  <header class="topnav">
+    <div style="display:flex;align-items:center;gap:2rem">
+      <span class="topnav__brand headline-font">RapidForce</span>
+      <nav class="topnav__links">
+      </nav>
+    </div>
+    <div class="topnav__actions">
+      <button class="topnav__btn-create">Create New</button>
+      <div class="topnav__avatar">
+        <img
+          alt="User profile"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmJH10ahChCm1bgT3CWIm5m-4Bqybjip1JpOgXo4w-Y_JuLS564kypFA6GYautfpKvmpgLKAzZYrRWZDDaaMwSNqo0MY3lfXkBtwjcmYL2vEtH1NTToCWE2c_kang4_mK-jBMFugxuRUHJuROLWbFLJj86UPbxMrWszbrNcrR20cJBn0KkUpP7WpqGW2-qMYxE8Y1NmbyC0qDQDaxerqlIg4WkFowOOzU2x9msZNbPIoezHj22cP2k_f83s2bkDZLlOARdoIpeErRP"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== App Shell ====== -->
+  <div class="app-shell">
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__brand">
+          <div class="sidebar__brand-icon">
+            <span class="material-symbols-outlined filled">view_in_ar</span>
+          </div>
+          <div>
+            <h2 class="sidebar__brand-title headline-font">The Workshop</h2>
+            <p class="sidebar__brand-subtitle">AI Engine Active</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a class="sidebar__link" href="./chat.html">
+          <span class="material-symbols-outlined">forum</span>
+          <span>Chat</span>
+        </a>
+        <a class="sidebar__link sidebar__link--active" href="./my-models.html">
+          <span class="material-symbols-outlined filled">view_in_ar</span>
+          <span>My Models</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-links">
+          <a class="sidebar__footer-link" href="#">
+            <span class="material-symbols-outlined" style="font-size:1.125rem">help</span>
+            <span>Help</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== Main Content ====== -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <div class="models-header">
+        <div>
+          <h1 class="models-header__title headline-font">My Models</h1>
+          <p class="models-header__desc">
+            Manage and download your generated 3D assets. High-fidelity renders are available for all completed generations.
+          </p>
+        </div>
+
+        <!-- Storage Indicator -->
+        <div class="storage-card glass-panel">
+          <div class="storage-card__header">
+            <span class="storage-card__label">Storage Capacity</span>
+            <span class="storage-card__count" id="storageCount">0 of 5</span>
+          </div>
+          <div class="storage-card__bar">
+            <div class="storage-card__bar-fill" id="storageBarFill" data-percent="0"></div>
+          </div>
+          <p class="storage-card__tier">Free Tier Account</p>
+        </div>
+      </div>
+
+      <!-- Models Grid -->
+      <p class="models-status" id="modelsStatus" hidden></p>
+      <div class="models-grid" id="modelsGrid"></div>
+    </main>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="bg-decoration">
+    <div class="bg-decoration__blob--blue"></div>
+    <div class="bg-decoration__blob--purple"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./scripts/shared.js"></script>
+  <script src="./scripts/my-models.js"></script>
+</body>
+</html>

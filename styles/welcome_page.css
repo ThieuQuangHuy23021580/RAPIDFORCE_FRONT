@@ -1,0 +1,734 @@
+/* ===========================
+   RapidForce — Welcome / Landing
+   =========================== */
+
+:root {
+  --wp-bg: #f7f9fb;
+  --wp-on-bg: #2d3337;
+  --wp-muted: #596063;
+  --wp-primary: #5948d3;
+  --wp-on-primary: #fcf7ff;
+  --wp-primary-container: #c0b9ff;
+  --wp-on-primary-container: #3518b0;
+  --wp-secondary-container: #c7e7ff;
+  --wp-on-secondary-container: #225774;
+  --wp-tertiary-container: #d6f7d2;
+  --wp-on-tertiary-container: #445f44;
+  --wp-outline: rgba(117, 124, 127, 0.25);
+  --wp-glass: rgba(255, 255, 255, 0.4);
+  --wp-gradient: linear-gradient(135deg, #d5f5d1 0%, #a9dafd 50%, #e5b1fb 100%);
+  --wp-nav-h: 4.25rem;
+  --wp-max: 80rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.welcome-page {
+  margin: 0;
+  font-family: "Manrope", system-ui, sans-serif;
+  color: var(--wp-on-bg);
+  background: var(--wp-gradient);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.headline-font {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* --- Top nav --- */
+.welcome-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.welcome-nav__inner {
+  max-width: var(--wp-max);
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.welcome-nav__brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--wp-primary);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.welcome-nav__links {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .welcome-nav__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .welcome-nav__brand {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .welcome-nav__links {
+    display: flex;
+    grid-column: 2;
+    justify-self: center;
+  }
+}
+
+.welcome-nav__link {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--wp-muted);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.15rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.welcome-nav__link:hover {
+  color: var(--wp-primary);
+}
+
+.welcome-nav__link--active {
+  font-weight: 700;
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+/* --- Main --- */
+.welcome-main {
+  padding-top: var(--wp-nav-h);
+}
+
+.welcome-section-inner {
+  max-width: var(--wp-max);
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* --- Hero --- */
+.welcome-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem 0 3.5rem;
+}
+
+@media (min-width: 1024px) {
+  .welcome-hero {
+    padding: 3.5rem 0 4.5rem;
+  }
+}
+
+.welcome-hero__inner {
+  max-width: var(--wp-max);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .welcome-hero__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.welcome-badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wp-primary);
+  background: rgba(89, 72, 211, 0.1);
+}
+
+.welcome-hero__title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--wp-on-bg);
+  max-width: 20ch;
+}
+
+.welcome-hero__lede {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--wp-muted);
+  max-width: 32rem;
+}
+
+.welcome-hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .welcome-hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.welcome-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.75rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+}
+
+.welcome-btn:active {
+  transform: scale(0.98);
+}
+
+.welcome-btn--glass {
+  color: var(--wp-on-bg);
+  background: var(--wp-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 50px rgba(45, 51, 55, 0.12);
+}
+
+.welcome-btn--glass:hover {
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.welcome-btn__row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.welcome-btn--glass:hover .material-symbols-outlined {
+  transform: translateX(3px);
+}
+
+.welcome-btn--glass .material-symbols-outlined {
+  transition: transform 0.2s;
+  font-size: 1.35rem;
+}
+
+/* Hero mosaic */
+.welcome-hero__visual {
+  position: relative;
+}
+
+.welcome-hero__glow {
+  position: absolute;
+  z-index: 0;
+  bottom: -3rem;
+  right: -2rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 50%;
+  background: rgba(89, 72, 211, 0.2);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.welcome-mosaic {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .welcome-mosaic {
+    grid-template-columns: 1.35fr 1fr;
+    align-items: start;
+  }
+}
+
+.welcome-mosaic__large {
+  padding-top: 0;
+}
+
+@media (min-width: 640px) {
+  .welcome-mosaic__large {
+    padding-top: 2.5rem;
+  }
+}
+
+.welcome-mosaic__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.welcome-mosaic__frame {
+  background: var(--wp-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 0.45rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 50px rgba(45, 51, 55, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.welcome-mosaic__frame--tilt-l {
+  transform: rotate(-2deg);
+}
+
+.welcome-mosaic__frame--tilt-r {
+  transform: rotate(4deg);
+}
+
+.welcome-mosaic__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.welcome-mosaic__large .welcome-mosaic__frame img {
+  aspect-ratio: 4 / 5;
+}
+
+.welcome-mosaic__stack .welcome-mosaic__frame:first-child img {
+  aspect-ratio: 1;
+}
+
+.welcome-mosaic__stack .welcome-mosaic__frame:last-child img {
+  aspect-ratio: 3 / 4;
+}
+
+/* --- Steps --- */
+.welcome-steps {
+  padding: 3rem 0 3.5rem;
+}
+
+.welcome-section-head {
+  text-align: center;
+  margin-bottom: 2.75rem;
+}
+
+.welcome-section-head__title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.85rem, 3vw, 2.75rem);
+  font-weight: 700;
+  color: var(--wp-on-bg);
+}
+
+.welcome-section-head__lede {
+  margin: 0 auto;
+  max-width: 36rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--wp-muted);
+}
+
+.welcome-steps__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .welcome-steps__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+.welcome-step {
+  position: relative;
+  overflow: hidden;
+  padding: 1.75rem 1.5rem;
+  border-radius: 2rem;
+  background: var(--wp-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 24px rgba(45, 51, 55, 0.06);
+  transition: background 0.35s, transform 0.2s;
+}
+
+.welcome-step:hover {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.welcome-step__num {
+  position: absolute;
+  top: 0.75rem;
+  right: 1.25rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: rgba(45, 51, 55, 0.06);
+  line-height: 1;
+}
+
+.welcome-step__icon {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: transform 0.25s;
+}
+
+.welcome-step:hover .welcome-step__icon {
+  transform: scale(1.08);
+}
+
+.welcome-step__icon .material-symbols-outlined {
+  font-size: 1.85rem;
+}
+
+.welcome-step__icon--secondary {
+  background: var(--wp-secondary-container);
+  color: var(--wp-on-secondary-container);
+}
+
+.welcome-step__icon--primary {
+  background: var(--wp-primary-container);
+  color: var(--wp-on-primary-container);
+}
+
+.welcome-step__icon--tertiary {
+  background: var(--wp-tertiary-container);
+  color: var(--wp-on-tertiary-container);
+}
+
+.welcome-step__title {
+  margin: 0 0 0.65rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--wp-on-bg);
+}
+
+.welcome-step__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--wp-muted);
+}
+
+/* --- Showcase --- */
+.welcome-showcase {
+  padding: 3rem 0 3.5rem;
+}
+
+.welcome-showcase__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .welcome-showcase__head {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.welcome-showcase__title {
+  margin-bottom: 0.45rem;
+}
+
+.welcome-showcase__subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--wp-muted);
+}
+
+.welcome-showcase__btn {
+  display: inline-block;
+  padding: 0.65rem 1.35rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--wp-on-bg);
+  text-decoration: none;
+  border-radius: 9999px;
+  border: 1px solid var(--wp-outline);
+  transition: background 0.2s;
+}
+
+.welcome-showcase__btn:hover {
+  background: rgba(241, 244, 246, 0.85);
+}
+
+.welcome-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .welcome-showcase__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.welcome-showcase__card {
+  background: var(--wp-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 1.35rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(45, 51, 55, 0.08);
+}
+
+.welcome-showcase__img-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.welcome-showcase__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s ease;
+}
+
+.welcome-showcase__card:hover .welcome-showcase__img-wrap img {
+  transform: scale(1.08);
+}
+
+.welcome-showcase__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(11, 15, 16, 0.55), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.welcome-showcase__card:hover .welcome-showcase__overlay {
+  opacity: 1;
+}
+
+.welcome-showcase__overlay span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* --- Final CTA --- */
+.welcome-cta {
+  padding: 3rem 0 4rem;
+}
+
+.welcome-cta__card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 2.5rem;
+  background: var(--wp-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 24px 60px rgba(45, 51, 55, 0.1);
+}
+
+@media (min-width: 1024px) {
+  .welcome-cta__card {
+    padding: 4rem 3rem;
+    border-radius: 3rem;
+  }
+}
+
+.welcome-cta__glow {
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.welcome-cta__glow--tr {
+  top: 0;
+  right: 0;
+  background: rgba(89, 72, 211, 0.12);
+  transform: translate(35%, -45%);
+}
+
+.welcome-cta__glow--bl {
+  bottom: 0;
+  left: 0;
+  background: rgba(74, 102, 74, 0.12);
+  transform: translate(-35%, 45%);
+}
+
+.welcome-cta__content {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-cta__title {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  color: var(--wp-on-bg);
+  line-height: 1.1;
+}
+
+.welcome-cta__lede {
+  margin: 0 auto 1.75rem;
+  max-width: 34rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--wp-muted);
+}
+
+.welcome-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  font-weight: 700;
+  color: var(--wp-on-primary);
+  background: var(--wp-primary);
+  text-decoration: none;
+  border-radius: 9999px;
+  box-shadow: 0 16px 40px rgba(89, 72, 211, 0.28);
+  transition: transform 0.15s, filter 0.2s;
+}
+
+.welcome-cta__btn:hover {
+  filter: brightness(1.06);
+}
+
+.welcome-cta__btn:active {
+  transform: scale(0.98);
+}
+
+.welcome-cta__btn .material-symbols-outlined {
+  font-size: 1.5rem;
+}
+
+/* --- Footer --- */
+.welcome-footer {
+  margin-top: 2rem;
+  background: rgba(241, 244, 246, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.welcome-footer__inner {
+  max-width: var(--wp-max);
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .welcome-footer__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.welcome-footer__brand {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--wp-on-bg);
+  margin-bottom: 0.35rem;
+}
+
+.welcome-footer__copy {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--wp-muted);
+}
+
+.welcome-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.welcome-footer__links a {
+  font-size: 0.85rem;
+  color: var(--wp-muted);
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+  opacity: 0.88;
+}
+
+.welcome-footer__links a:hover {
+  color: var(--wp-on-bg);
+  opacity: 1;
+}

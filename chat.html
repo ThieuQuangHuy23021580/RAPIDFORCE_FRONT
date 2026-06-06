@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RapidForce | Chat — AI Engine</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Material Symbols -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/shared.css" />
+  <link rel="stylesheet" href="./styles/chat.css" />
+</head>
+
+<body>
+  <!-- ====== Top Navigation ====== -->
+  <header class="topnav">
+    <div style="display:flex;align-items:center;gap:2rem">
+      <span class="topnav__brand headline-font">RapidForce</span>
+      <nav class="topnav__links">
+      </nav>
+    </div>
+    <div class="topnav__actions">
+      <button class="topnav__btn-create" id="createNewBtn">Create New</button>
+      <div class="topnav__profile-menu">
+        <span class="topnav__username" id="topnavUsername">Khách</span>
+        <button
+          class="topnav__profile-trigger"
+          id="userAvatarBtn"
+          aria-label="Open user menu"
+          aria-haspopup="true"
+          aria-expanded="false"
+          type="button"
+        >
+          <div class="topnav__avatar">
+            <img
+              alt="User profile"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSPXrPijmfx-WxndYbMDUfJggNjLfMq7xgdHu-D6jNIaSE-RpvXiSHV2pPUEJH5MTo-5XBRCWMLfRhog1f9Rft8fHekOxixyTxV5Bpo9DG3PXWpY4y8mV4vUm9TMMxXb0uywXvbB5bmPWyrB3SJOD33JtOpXeHPiDB_OjARYlp8sv45YjICY-MDaYLb0uj9e7IarZ7iWNwzG9AGZPlmvSL7mtF5Ztald24mDTTtrKdSiyeaF3ylpKV7k0rEeUcgoGXI9PvBAgpqDBx"
+            />
+          </div>
+        </button>
+        <div class="topnav__menu" id="userMenu" hidden>
+          <button class="topnav__menu-item topnav__menu-item--primary" id="authActionBtn" type="button"></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== App Shell ====== -->
+  <div class="app-shell">
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar">
+      <div class="sidebar__header">
+        <div class="sidebar__brand">
+          <div class="sidebar__brand-icon">
+            <span class="material-symbols-outlined">auto_awesome</span>
+          </div>
+          <div>
+            <h1 class="sidebar__brand-title headline-font">The Workshop</h1>
+            <p class="sidebar__brand-subtitle">AI Engine Active</p>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav">
+        <a class="sidebar__link sidebar__link--active" href="./chat.html" id="chatNavLink">
+          <span class="material-symbols-outlined">forum</span>
+          <span>Chat</span>
+        </a>
+        <a class="sidebar__link" href="./my-models.html" id="myModelsNavLink">
+          <span class="material-symbols-outlined">view_in_ar</span>
+          <span>My Models</span>
+        </a>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-links">
+          <a class="sidebar__footer-link" href="#">
+            <span class="material-symbols-outlined" style="font-size:1.125rem">help</span>
+            <span>Help</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== Main Content ====== -->
+    <main class="main-content">
+      <div class="chat-area" id="chatPanel">
+        <div class="chat-scroll-outer" aria-label="Chat messages">
+        <!-- Chat Messages -->
+        <section class="chat-messages" id="chatMessages">
+          <!-- Welcome message -->
+          <div class="msg msg--ai">
+            <div class="msg__wrapper msg__wrapper--ai">
+              <div class="msg__row">
+                <div class="msg__avatar">RF</div>
+                <div>
+                  <div class="msg__bubble msg__bubble--ai">
+                    <div class="msg__text-content">
+                      <strong>Welcome to RapidForce!</strong><br><br>
+                      Use <strong>Chat</strong> mode to ask me anything about 3D modeling, creative workflows, or general questions.<br><br>
+                      Switch to <strong>Render 3D</strong> mode to upload an image and generate a 3D model from it.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        </div>
+
+        <!-- Chat Input Footer -->
+        <footer class="chat-footer">
+          <div class="chat-input-wrap">
+            <!-- Mode Switcher -->
+            <div class="chat-mode-tabs">
+              <button class="chat-mode-tab chat-mode-tab--active" data-mode="chat">
+                <span class="material-symbols-outlined" style="font-size:1rem">forum</span>
+                Chat
+              </button>
+              <button class="chat-mode-tab" data-mode="render">
+                <span class="material-symbols-outlined" style="font-size:1rem">view_in_ar</span>
+                Render 3D
+              </button>
+            </div>
+
+            <div class="chat-input">
+              <!-- Render 3D controls (hidden by default) -->
+              <button class="chat-input__btn chat-input__render-only" id="attachBtn" title="Choose image">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+              <input id="imageInput" type="file" accept="image/*" class="sr-only" />
+
+              <input
+                id="chatInput"
+                class="chat-input__field"
+                type="text"
+                placeholder="Ask anything..."
+              />
+
+              <span id="selectedFileChip" class="chat-input__file-chip chat-input__render-only">
+                <span class="chat-input__file-chip-name" id="fileChipName"></span>
+                <button type="button" class="chat-input__file-chip-remove" id="removeFileBtn" aria-label="Remove file">&times;</button>
+              </span>
+
+              <div class="chat-input__actions">
+                <label class="toggle-rm-bg chat-input__render-only" for="removeBgToggle" aria-label="Toggle remove background">
+                  <input type="checkbox" id="removeBgToggle" />
+                  <span class="toggle-rm-bg__track">
+                    <span class="toggle-rm-bg__thumb"></span>
+                  </span>
+                  <span class="toggle-rm-bg__tooltip">Remove Background</span>
+                </label>
+                <button class="chat-input__send" id="sendBtn">
+                  <span class="material-symbols-outlined">send</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <section class="models-panel" id="modelsPanel" hidden>
+        <iframe
+          id="modelsFrame"
+          class="models-panel__frame"
+          title="My Models"
+          loading="lazy"
+        ></iframe>
+      </section>
+    </main>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="bg-decoration">
+    <div class="bg-decoration__blob--blue"></div>
+    <div class="bg-decoration__blob--purple"></div>
+  </div>
+
+  <div
+    id="modelsLoginToast"
+    class="chat-models-toast"
+    hidden
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <div class="chat-models-toast__inner">
+      <span class="material-symbols-outlined chat-models-toast__icon" aria-hidden="true">inventory_2</span>
+      <p class="chat-models-toast__text">Đăng nhập để lưu trữ mô hình 3D của bạn</p>
+      <button type="button" class="chat-models-toast__close" id="modelsLoginToastClose" aria-label="Đóng">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./scripts/shared.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="./scripts/chat.js"></script>
+</body>
+</html>
